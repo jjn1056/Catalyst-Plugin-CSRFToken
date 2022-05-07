@@ -188,7 +188,7 @@ String that is used in part to generate the token to help ensure its hard to gue
 =head2 max_age
 
 Default to 3600 seconds (one hour).   This is the length of time before the generated token
-is considered expired.   One hour is probably too long. You should set it to the shortest
+is considered expired.  One hour is probably too long. You should set it to the shortest
 time reasonable.
 
 =head2 param_key
