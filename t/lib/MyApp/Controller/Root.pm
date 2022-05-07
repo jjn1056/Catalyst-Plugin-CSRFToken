@@ -12,7 +12,6 @@ sub get :Path(get) Args(0) {
 
 sub test :Path(test) Args(0) {
   my ($self, $c) = @_;
-  $c->check_csrf_token;
   $c->res->body('ok');
 }
 

@@ -6,7 +6,7 @@ MyApp->setup_plugins([qw/
 /]);
 
 MyApp->config(
-  'Plugin::CSRFToken' => { default_secret=>'changeme', auto_check_csrf_token => 1 }
+  'Plugin::CSRFToken' => { default_secret=>'changeme', auto_check => 1 }
 );
 
 sub sessionid { 23123123123 }

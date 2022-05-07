@@ -43,7 +43,7 @@ has 'auto_check_csrf_token' => (is=>'ro', required=>1, builder=>'_build_auto_che
 
 sub default_csrf_session_id {
   my $self = shift;
-  return $self->request->path .'|'. $self->sessionid;
+  return $self->sessionid;
 }
 
 sub csrf_token {
@@ -68,7 +68,7 @@ sub check_csrf_token {
   my $token = exists($args{csrf_token}) ? $args{csrf_token} : $self->find_csrf_token_in_request;
   my $session = exists($args{session}) ? $args{session} : $self->default_csrf_session_id;
   my $token_secret = exists($args{token_secret}) ? $args{token_secret}  : $self->default_csrf_token_secret;
-
+ 
   return 0 unless $token;
   return 0 unless WWW::CSRF::check_csrf_token(
     $session, 
@@ -83,7 +83,7 @@ sub check_csrf_token {
 sub delegate_failed_csrf_token_check {
   my $self = shift;
   return $self->controller->handle_failed_csrf_token_check($self) if $self->controller->can('handle_failed_csrf_token_check');
-  return $self->handle_failed_csrf_token_check if $self-can('handle_failed_csrf_token_check');
+  return $self->handle_failed_csrf_token_check if $self->can('handle_failed_csrf_token_check');
   return Catalyst::Exception->throw(message => 'csrf_token failed validation');
 }
 
