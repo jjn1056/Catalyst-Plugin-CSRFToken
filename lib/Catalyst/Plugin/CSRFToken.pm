@@ -3,7 +3,7 @@ package Catalyst::Plugin::CSRFToken;
 use Moo::Role;
 use WWW::CSRF ();
  
-our $VERSION = '0.001';
+our $VERSION = '0.002';
  
 has 'default_csrf_token_secret' => (is=>'ro', required=>1, builder=>'_build_default_csrf_token_secret');
  
