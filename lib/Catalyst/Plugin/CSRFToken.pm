@@ -261,11 +261,6 @@ Default is whatever you set the configuration value 'default_secret' to.
 Return true or false depending on if the current request has a token which is valid.  Accepts the
 following arguments in the form of a hash:
 
-  my $token = exists($args{csrf_token}) ? $args{csrf_token} : $self->find_csrf_token_in_request;
-  my $session = exists($args{session}) ? $args{session} : $self->default_csrf_session_id;
-  my $token_secret = exists($args{token_secret}) ? $args{token_secret}  : $self->default_csrf_token_secret;
-  my $max_age = exists($args{max_age}) ? $args{max_age}  : $self->default_csrf_token_max_age;
-
 =over 4
 
 =item csrf_token
