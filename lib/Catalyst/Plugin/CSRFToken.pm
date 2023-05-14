@@ -5,7 +5,7 @@ use WWW::CSRF ();
 use Bytes::Random::Secure ();
 
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
  
 has 'default_csrf_token_secret' => (is=>'ro', required=>1, builder=>'_build_default_csrf_token_secret');
  
@@ -166,6 +166,21 @@ sub validate_csrf_token_if_required {
       !$self->check_single_use_csrf_token
     )
   );
+}
+
+sub process_csrf_token {
+  my $self = shift;
+  return 1 unless (
+    ($self->req->method eq 'POST') ||
+    ($self->req->method eq 'PUT') ||
+    ($self->req->method eq 'PATCH')
+  );
+
+  if($self->can('session') && $self->session->{current_csrf_token}) {
+    return $self->check_single_use_csrf_token;
+  } else {
+    return $self->check_csrf_token;
+  }
 }
 
 around 'dispatch', sub {
