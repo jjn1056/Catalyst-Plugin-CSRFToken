@@ -1,6 +1,12 @@
 # This file documents the revision history for Perl extension Catalyst::Plugin::CSRFToken.
 
-0.003 - 2002-05-10
+0.004 - 2023-05-14
+  - changed when we perform the automatic token validation to better allow
+  for one to override how error messages are sent to the browser
+  - Changed the default error message to specify that the error is a bad token
+  and sets the code to 403: forbidden.
+
+0.003 - 2022-05-10
   - Added some extra utility methods and overall better docs
   - Added ability to create single use tokens.
 
