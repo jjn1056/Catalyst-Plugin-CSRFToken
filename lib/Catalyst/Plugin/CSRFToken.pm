@@ -64,6 +64,7 @@ sub single_use_csrf_token {
 sub check_single_use_csrf_token {
   my ($self, %args) = @_;
   my $token = exists($args{csrf_token}) ? $args{csrf_token} : $self->find_csrf_token_in_request;
+  return 0 unless $token;
   if(my $session_token = delete($self->session->{current_csrf_token})) {
     return $session_token eq $token ? 1:0;
   } else {
@@ -84,11 +85,15 @@ sub find_csrf_token_in_request {
   if(my $header_token = $self->request->header('X-CSRF-Token')) {
     return $header_token;
   } else {
-    return $self->req->body_parameters->{$self->csrf_token_param_key};
+    return $self->req->body_parameters->{$self->csrf_token_param_key}
+      if exists($self->req->body_parameters->{$self->csrf_token_param_key});
+    return $self->req->body_data->{$self->csrf_token_param_key}
+      if exists($self->req->body_data->{$self->csrf_token_param_key});      
+    return undef;
   }
 }
 
-sub is_cstf_token_expired {
+sub is_csrf_token_expired {
   my ($self, %args) = @_;
   my $token = exists($args{csrf_token}) ? $args{csrf_token} : $self->find_csrf_token_in_request;
   my $session = exists($args{session}) ? $args{session} : $self->default_csrf_session_id;
