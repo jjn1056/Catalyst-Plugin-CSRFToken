@@ -9,7 +9,8 @@
     I did my best to be compatible in terms of the public API. This works
     for all my existing code but please shout out if you run into issues.
     FWIW I believe you should upgrade as I consider previous versions
-    insecure and I will be removing them from CPAN in the future.
+    insecure and I will be removing them from CPAN in the future.  Sorry for
+    the trouble.
 
 0.008 - 2024-10-27
   - Force session id to exist if one doesn't already.
